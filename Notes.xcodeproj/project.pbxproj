@@ -21,6 +21,7 @@
 		FD8593C91CE4B78200E0425B /* TSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C71CE4B78200E0425B /* TSNote.m */; };
 		FD8593CF1CE4B8A200E0425B /* TSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593CE1CE4B8A200E0425B /* TSTableViewCell.m */; };
 		FD8593D31CE4C61E00E0425B /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593D21CE4C61E00E0425B /* NoteViewController.m */; };
+		FDEA114E1CE6764200098BD2 /* TSContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDEA114D1CE6764200098BD2 /* TSContentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		FD8593CE1CE4B8A200E0425B /* TSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewCell.m; sourceTree = "<group>"; };
 		FD8593D11CE4C61E00E0425B /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
 		FD8593D21CE4C61E00E0425B /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
+		FDEA114C1CE6764200098BD2 /* TSContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSContentViewController.h; sourceTree = "<group>"; };
+		FDEA114D1CE6764200098BD2 /* TSContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSContentViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +181,8 @@
 				FD8593C21CE4B24C00E0425B /* TSMainTableViewController.m */,
 				FD8593D11CE4C61E00E0425B /* NoteViewController.h */,
 				FD8593D21CE4C61E00E0425B /* NoteViewController.m */,
+				FDEA114C1CE6764200098BD2 /* TSContentViewController.h */,
+				FDEA114D1CE6764200098BD2 /* TSContentViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD8593C31CE4B24C00E0425B /* TSMainTableViewController.m in Sources */,
+				FDEA114E1CE6764200098BD2 /* TSContentViewController.m in Sources */,
 				FD8593C81CE4B78200E0425B /* TSNote+CoreDataProperties.m in Sources */,
 				FD8593CF1CE4B8A200E0425B /* TSTableViewCell.m in Sources */,
 				FD8593C91CE4B78200E0425B /* TSNote.m in Sources */,

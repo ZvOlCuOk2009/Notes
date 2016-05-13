@@ -9,6 +9,8 @@
 #import "TSMainTableViewController.h"
 #import "TSTableViewCell.h"
 #import "NoteViewController.h"
+
+#import "TSContentViewController.h"
 #import "TSNote.h"
 #import "TSDataManager.h"
 #import <CoreData/CoreData.h>
@@ -131,12 +133,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NoteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
+    TSContentViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContentViewController"];
     self.note = [self.fetchedResultsController objectAtIndexPath:indexPath];
     controller.data = self.note.data;
     controller.content = self.note.content;
     [self.navigationController pushViewController:controller animated:YES];
-    //NSLog(@"indexPath row = %ld", indexPath.row);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
