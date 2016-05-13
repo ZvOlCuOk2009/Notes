@@ -8,14 +8,12 @@
 
 #import "TSMainTableViewController.h"
 #import "TSTableViewCell.h"
-#import "NoteViewController.h"
-
 #import "TSContentViewController.h"
 #import "TSNote.h"
 #import "TSDataManager.h"
 #import <CoreData/CoreData.h>
 
-@interface TSMainTableViewController () <NSFetchedResultsControllerDelegate>
+@interface TSMainTableViewController () <NSFetchedResultsControllerDelegate, TSContentViewControllerDelegate>
 
 @property (strong, nonatomic) TSNote *note;
 
@@ -29,7 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote:)];
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                             target:self action:@selector(addNote:)];
     
     self.navigationItem.leftBarButtonItem = addItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -48,55 +47,6 @@
     self.navigationController.navigationBar.tintColor = tintColor;
 }
 
-///*************
-/*
-- (TSNote *)randomNote
-{
-    TSNote *note = [NSEntityDescription insertNewObjectForEntityForName:@"TSNote"
-                                                 inManagedObjectContext:self.managedObjectContext];
-    note.data = [NSString stringWithFormat:@"%d.05.16", arc4random_uniform(30)];
-    note.content = [NSString stringWithFormat:@"Заметка номер - %d", arc4random_uniform(100)];
-    [self.managedObjectContext save:nil];
-    
-    return note;
-}
-
-- (NSArray *)allNotes
-{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TSNote"
-                                              inManagedObjectContext:self.managedObjectContext];
-    [request setEntity:entity];
-    
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    NSArray *result = [self.managedObjectContext executeFetchRequest:request
-                                                               error:&error];
-    return result;
-}
-
-- (void)printNotes
-{
-    NSArray *notes = [self allNotes];
-    for (TSNote *note in notes) {
-        NSLog(@"%@ %@", note.data, note.content);
-    }
-}
-
-- (void)deleteNotes
-{
-    NSArray *notes = [self allNotes];
-    for (TSNote *note in notes) {
-        [self.managedObjectContext deleteObject:note];
-    }
-    [self.managedObjectContext save:nil];
-}
-*/
-///*************
-
 #pragma mark - NSManagedObjectContext
 
 -(NSManagedObjectContext *) managedObjectContext {
@@ -107,16 +57,18 @@
     return _managedObjectContext;
 }
 
+#pragma mark - Actions
+
 - (void)addNote:(UIBarButtonItem *)item
 {
-    NoteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
+    TSContentViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContentViewController"];
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     dateFormater.dateFormat = @"dd.MM.yyyy HH:mm";
     controller.data = [dateFormater stringFromDate:[NSDate date]];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -137,13 +89,22 @@
     self.note = [self.fetchedResultsController objectAtIndexPath:indexPath];
     controller.data = self.note.data;
     controller.content = self.note.content;
+    TSContentViewController *contController = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContentViewController"];
+    contController.delegate = self;
+    [contController receiveCell];
+    
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 60;
+#pragma mark - Configure Cell
+
+- (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.dataLabel.text = note.data;
+    cell.contentLabel.text = note.content;
 }
+
+#pragma mark - UITableviewDelegate
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -155,39 +116,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             NSLog(@"Error deleting item in coredata %@",[error localizedDescription]);
         }
     }
-    
-    if (indexPath.row) {
-        [self.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    }
-    
-    NSLog(@"indexPath row = %ld", indexPath.row);
-    NSLog(@"deleted");
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+- (void)cellForRemoval:(TSNote *)note
 {
-    NSLog(@"moveRowAtIndexPath");
-}
-
-- (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    if ([note.content intValue] >= 3) {
-//        NSLog(@"note.content - %ld", (long)[note.content intValue]);
-//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:2];
-//    } else if ([note.content intValue] == 2) {
-//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:1];
-//    } else if ([note.content intValue] == 1) {
-//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:0];
-//    }
-    cell.dataLabel.text = note.data;
-    cell.contentLabel.text = note.content;
-}
-
-- (NSUInteger)wordCount
-{
-    NSInteger value = [self.note.data intValue];
-    
-    return value;
+    NSLog(@"delete cell!!!");
 }
 
 #pragma mark - Fetched results controller

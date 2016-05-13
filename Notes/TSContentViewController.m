@@ -57,6 +57,11 @@
     return _managedObjectContext;
 }
 
+- (void)receiveCell
+{
+    [self.delegate cellForRemoval:self.note];
+}
+
 #pragma mark - Actions
 
 - (void)saveNote:(UIBarButtonItem *)item
