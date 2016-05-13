@@ -41,12 +41,18 @@
     self.currentData = [dateFormater stringFromDate:[NSDate date]];
     
     self.dataLabel.text = self.data;
+    self.headerLabel.text = [[self.content componentsSeparatedByString:@" "] objectAtIndex:0];
     self.contentTextView.text = self.content;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - NSManagedObjectContext
@@ -57,11 +63,6 @@
         _managedObjectContext = [[TSDataManager sharedManager] managedObjectContext];
     }
     return _managedObjectContext;
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (void)saveNote:(UIBarButtonItem *)item
@@ -76,8 +77,23 @@
 
 - (void)deleteNote:(UIBarButtonItem *)item
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    NSLog(@"deleted");
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Вы хотите удалить"
+                                                                             message:@"заметку?..."
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"Нет"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+                                                       
+                                                     }];
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Да"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+                                                       [self.navigationController popToRootViewControllerAnimated:YES];
+                                                       NSLog(@"deleted");
+                                                   }];
+    [alertController addAction:actionNo];
+    [alertController addAction:actionYes];
+    [self presentViewController:alertController animated:YES completion:^{ }];
 }
 
 #pragma mark - Navigation

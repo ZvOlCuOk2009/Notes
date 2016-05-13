@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSString *content;
 @property (weak, nonatomic) IBOutlet UILabel *dataLabel;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
-
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end

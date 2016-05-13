@@ -28,23 +28,9 @@
     [super viewDidLoad];
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote:)];
+    
     self.navigationItem.leftBarButtonItem = addItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
-    [self.navigationController.navigationBar
-     setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor orangeColor]}];
-    
-    
-    
-//    for (int i = 0; i < 50; i++) {
-//        [self randomNote];
-//    }
-    
-//    [self printNotes];
-//    
-//    [self deleteNotes];
- //   NSLog(@"%@", self.currentData);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,6 +41,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    UIColor *tintColor = [UIColor colorWithRed:221.0f/255.0f green:187.0f/255.0f blue:0.0f/255.0f alpha:1];
+    self.navigationController.navigationBar.tintColor = tintColor;
 }
 
 ///*************
@@ -119,10 +108,10 @@
 - (void)addNote:(UIBarButtonItem *)item
 {
     NoteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
-//    controller.data = self.currentData;
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    dateFormater.dateFormat = @"dd.MM.yyyy HH:mm";
+    controller.data = [dateFormater stringFromDate:[NSDate date]];
     [self.navigationController pushViewController:controller animated:YES];
-    
-    NSLog(@"add");
 }
 
 #pragma mark - Table view data source
@@ -137,7 +126,6 @@
 {
     TSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
-    
     return cell;
 }
 
@@ -148,6 +136,7 @@
     controller.data = self.note.data;
     controller.content = self.note.content;
     [self.navigationController pushViewController:controller animated:YES];
+    //NSLog(@"indexPath row = %ld", indexPath.row);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,6 +155,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         }
     }
     
+    if (indexPath.row) {
+        [self.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    }
+    
+    NSLog(@"indexPath row = %ld", indexPath.row);
     NSLog(@"deleted");
 }
 
@@ -176,9 +170,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSString *headerNote = [[note.content componentsSeparatedByString:@" "] objectAtIndex:0];
+//    if ([note.content intValue] >= 3) {
+//        NSLog(@"note.content - %ld", (long)[note.content intValue]);
+//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:2];
+//    } else if ([note.content intValue] == 2) {
+//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:1];
+//    } else if ([note.content intValue] == 1) {
+//        [[note.content componentsSeparatedByString:@" "] objectAtIndex:0];
+//    }
     cell.dataLabel.text = note.data;
-    cell.contentLabel.text = headerNote;
+    cell.contentLabel.text = note.content;
+}
+
+- (NSUInteger)wordCount
+{
+    NSInteger value = [self.note.data intValue];
+    
+    return value;
 }
 
 #pragma mark - Fetched results controller
@@ -267,41 +275,5 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 {
     [self.tableView endUpdates];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
