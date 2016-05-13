@@ -7,20 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol NoteViewControllerDelegate <NSObject>
-
-- (void)textViewNote:(NSString *)text;
-
-@end
+#import "TSNote.h"
 
 @interface NoteViewController : UIViewController
 
 @property (strong, nonatomic) NSString *data;
 @property (strong, nonatomic) NSString *content;
+@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
-@property (weak, nonatomic) id <NoteViewControllerDelegate> delegate;
 
-- (void)transitionText:(NSString *)text;
 
 @end

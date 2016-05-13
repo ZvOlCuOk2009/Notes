@@ -13,11 +13,10 @@
 #import "TSDataManager.h"
 #import <CoreData/CoreData.h>
 
-@interface TSMainTableViewController () <NoteViewControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface TSMainTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) TSNote *note;
-//@property (strong, nonatomic) NoteViewController *noteController;
-@property (strong, nonatomic) NSString *currentData;
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -36,13 +35,7 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor orangeColor]}];
     
-    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-    dateFormater.dateFormat = @"dd.MM.yyyy";
-    self.currentData = [dateFormater stringFromDate:[NSDate date]];
     
-    NoteViewController *contr = [[NoteViewController alloc] init];
-    
-    contr.delegate = self;
     
 //    for (int i = 0; i < 50; i++) {
 //        [self randomNote];
@@ -51,6 +44,7 @@
 //    [self printNotes];
 //    
 //    [self deleteNotes];
+ //   NSLog(@"%@", self.currentData);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,13 +52,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)textViewNote:(NSString *)text
+- (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"text - %@", text);
+    [super viewWillAppear:animated];
 }
 
+///*************
 /*
-
 - (TSNote *)randomNote
 {
     TSNote *note = [NSEntityDescription insertNewObjectForEntityForName:@"TSNote"
@@ -109,14 +103,8 @@
     }
     [self.managedObjectContext save:nil];
 }
- */
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //self.noteController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
-    //NSLog(@"%@", self.textNote);
-}
+*/
+///*************
 
 #pragma mark - NSManagedObjectContext
 
@@ -131,7 +119,7 @@
 - (void)addNote:(UIBarButtonItem *)item
 {
     NoteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
-    controller.data = self.currentData;
+//    controller.data = self.currentData;
     [self.navigationController pushViewController:controller animated:YES];
     
     NSLog(@"add");
@@ -167,19 +155,15 @@
     return 60;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-//        NSString *string = [self.array objectAtIndex:indexPath.row];
-//        
-//        [self.array removeObject:string];
-        
-        [tableView beginUpdates];
-        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-        
-        [tableView endUpdates];
+        [self.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error deleting item in coredata %@",[error localizedDescription]);
+        }
     }
     
     NSLog(@"deleted");
@@ -187,13 +171,14 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    
+    NSLog(@"moveRowAtIndexPath");
 }
 
 - (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.dataLabel.text = [NSString stringWithFormat:@"%@", note.data];
-    cell.contentLabel.text = [NSString stringWithFormat:@"%@", note.content];
+    NSString *headerNote = [[note.content componentsSeparatedByString:@" "] objectAtIndex:0];
+    cell.dataLabel.text = note.data;
+    cell.contentLabel.text = headerNote;
 }
 
 #pragma mark - Fetched results controller
@@ -207,7 +192,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"TSNote" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
-    NSSortDescriptor *sortDescriptorData = [[NSSortDescriptor alloc] initWithKey:@"data" ascending:NO];
+    NSSortDescriptor *sortDescriptorData = [[NSSortDescriptor alloc] initWithKey:@"content" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptorData]];
     NSFetchedResultsController *aFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest

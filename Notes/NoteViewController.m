@@ -9,10 +9,17 @@
 #import "NoteViewController.h"
 #import "TSMainTableViewController.h"
 
+#import "TSDataManager.h"
+
 @interface NoteViewController ()
 
-//@property (strong, nonatomic) TSMainTableViewController *mainController;
-@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+@property (strong, nonatomic) NSString *currentData;
+@property (strong, nonatomic) TSNote *note;
 
 @end
 
@@ -22,8 +29,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNote:)];
+    
     UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteNote:)];
-    self.navigationItem.rightBarButtonItem = deleteItem;
+    
+    NSArray *buttons = @[deleteItem, saveItem];
+    self.navigationItem.rightBarButtonItems = buttons;
+    
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    dateFormater.dateFormat = @"dd.MM.yyyy HH:mm";
+    self.currentData = [dateFormater stringFromDate:[NSDate date]];
     
     self.dataLabel.text = self.data;
     self.contentTextView.text = self.content;
@@ -34,35 +49,43 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)transitionText:(NSString *)text
-{
-    [self.delegate textViewNote:self.contentTextView.text];
+#pragma mark - NSManagedObjectContext
+
+-(NSManagedObjectContext *) managedObjectContext {
+    
+    if (!_managedObjectContext) {
+        _managedObjectContext = [[TSDataManager sharedManager] managedObjectContext];
+    }
+    return _managedObjectContext;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
-    
-//    self.mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
-//    self.mainController.textNote = self.contentTextView.text;
+}
+
+- (void)saveNote:(UIBarButtonItem *)item
+{
+    self.note = [NSEntityDescription insertNewObjectForEntityForName:@"TSNote"
+                                              inManagedObjectContext:self.managedObjectContext];
+    self.note.data = self.currentData;
+    self.note.content = self.contentTextView.text;
+    [self.managedObjectContext save:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)deleteNote:(UIBarButtonItem *)item
 {
-    NSLog(@"%@", self.contentTextView.text);
-    
-    NSLog(@"delete note");
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSLog(@"deleted");
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    
 }
-*/
+
 
 @end
