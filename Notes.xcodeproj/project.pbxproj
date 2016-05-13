@@ -16,7 +16,7 @@
 		FD85939E1CE4B19800E0425B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD85939C1CE4B19800E0425B /* LaunchScreen.storyboard */; };
 		FD8593A91CE4B19900E0425B /* NotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593A81CE4B19900E0425B /* NotesTests.m */; };
 		FD8593B41CE4B19900E0425B /* NotesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593B31CE4B19900E0425B /* NotesUITests.m */; };
-		FD8593C31CE4B24C00E0425B /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C21CE4B24C00E0425B /* MainTableViewController.m */; };
+		FD8593C31CE4B24C00E0425B /* TSMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C21CE4B24C00E0425B /* TSMainTableViewController.m */; };
 		FD8593C81CE4B78200E0425B /* TSNote+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C51CE4B78200E0425B /* TSNote+CoreDataProperties.m */; };
 		FD8593C91CE4B78200E0425B /* TSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C71CE4B78200E0425B /* TSNote.m */; };
 		FD8593CF1CE4B8A200E0425B /* TSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593CE1CE4B8A200E0425B /* TSTableViewCell.m */; };
@@ -58,8 +58,8 @@
 		FD8593AF1CE4B19900E0425B /* NotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8593B31CE4B19900E0425B /* NotesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotesUITests.m; sourceTree = "<group>"; };
 		FD8593B51CE4B19900E0425B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FD8593C11CE4B24C00E0425B /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTableViewController.h; path = ../MainTableViewController.h; sourceTree = "<group>"; };
-		FD8593C21CE4B24C00E0425B /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTableViewController.m; path = ../MainTableViewController.m; sourceTree = "<group>"; };
+		FD8593C11CE4B24C00E0425B /* TSMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSMainTableViewController.h; path = ../TSMainTableViewController.h; sourceTree = "<group>"; };
+		FD8593C21CE4B24C00E0425B /* TSMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMainTableViewController.m; path = ../TSMainTableViewController.m; sourceTree = "<group>"; };
 		FD8593C41CE4B78200E0425B /* TSNote+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TSNote+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FD8593C51CE4B78200E0425B /* TSNote+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TSNote+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FD8593C61CE4B78200E0425B /* TSNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNote.h; sourceTree = "<group>"; };
@@ -174,8 +174,8 @@
 		FD8593CB1CE4B7A500E0425B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FD8593C11CE4B24C00E0425B /* MainTableViewController.h */,
-				FD8593C21CE4B24C00E0425B /* MainTableViewController.m */,
+				FD8593C11CE4B24C00E0425B /* TSMainTableViewController.h */,
+				FD8593C21CE4B24C00E0425B /* TSMainTableViewController.m */,
 				FD8593D11CE4C61E00E0425B /* NoteViewController.h */,
 				FD8593D21CE4C61E00E0425B /* NoteViewController.m */,
 			);
@@ -333,7 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD8593C31CE4B24C00E0425B /* MainTableViewController.m in Sources */,
+				FD8593C31CE4B24C00E0425B /* TSMainTableViewController.m in Sources */,
 				FD8593C81CE4B78200E0425B /* TSNote+CoreDataProperties.m in Sources */,
 				FD8593CF1CE4B8A200E0425B /* TSTableViewCell.m in Sources */,
 				FD8593C91CE4B78200E0425B /* TSNote.m in Sources */,

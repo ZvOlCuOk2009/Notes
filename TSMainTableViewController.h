@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTableViewController : UITableViewController
+@interface TSMainTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSString *textNote;
 

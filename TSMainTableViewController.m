@@ -6,14 +6,14 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#import "MainTableViewController.h"
+#import "TSMainTableViewController.h"
 #import "TSTableViewCell.h"
 #import "NoteViewController.h"
 #import "TSNote.h"
 #import "TSDataManager.h"
 #import <CoreData/CoreData.h>
 
-@interface MainTableViewController () <NSFetchedResultsControllerDelegate>
+@interface TSMainTableViewController () <NoteViewControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) TSNote *note;
 //@property (strong, nonatomic) NoteViewController *noteController;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation MainTableViewController
+@implementation TSMainTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,6 +40,10 @@
     dateFormater.dateFormat = @"dd.MM.yyyy";
     self.currentData = [dateFormater stringFromDate:[NSDate date]];
     
+    NoteViewController *contr = [[NoteViewController alloc] init];
+    
+    contr.delegate = self;
+    
 //    for (int i = 0; i < 50; i++) {
 //        [self randomNote];
 //    }
@@ -52,6 +56,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)textViewNote:(NSString *)text
+{
+    NSLog(@"text - %@", text);
 }
 
 /*
@@ -106,7 +115,7 @@
 {
     [super viewWillAppear:animated];
     //self.noteController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoteViewController"];
-    NSLog(@"%@", self.textNote);
+    //NSLog(@"%@", self.textNote);
 }
 
 #pragma mark - NSManagedObjectContext

@@ -7,11 +7,11 @@
 //
 
 #import "NoteViewController.h"
-#import "MainTableViewController.h"
+#import "TSMainTableViewController.h"
 
 @interface NoteViewController ()
 
-@property (strong, nonatomic) MainTableViewController *mainController;
+//@property (strong, nonatomic) TSMainTableViewController *mainController;
 @property (weak, nonatomic) IBOutlet UILabel *dataLabel;
 
 @end
@@ -34,11 +34,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)transitionText:(NSString *)text
+{
+    [self.delegate textViewNote:self.contentTextView.text];
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    self.mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
-    self.mainController.textNote = self.contentTextView.text;
+    
+    
+//    self.mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
+//    self.mainController.textNote = self.contentTextView.text;
 }
 
 - (void)deleteNote:(UIBarButtonItem *)item
