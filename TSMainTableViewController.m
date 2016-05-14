@@ -13,10 +13,9 @@
 #import "TSDataManager.h"
 #import <CoreData/CoreData.h>
 
-@interface TSMainTableViewController () <NSFetchedResultsControllerDelegate, TSContentViewControllerDelegate>
+@interface TSMainTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) TSNote *note;
-
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -27,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                              target:self action:@selector(addNote:)];
     
     self.navigationItem.leftBarButtonItem = addItem;
@@ -43,7 +42,7 @@
 {
     [super viewWillAppear:animated];
     
-    UIColor *tintColor = [UIColor colorWithRed:221.0f/255.0f green:187.0f/255.0f blue:0.0f/255.0f alpha:1];
+    UIColor *tintColor = [UIColor colorWithRed:228.0f/255.0f green:171.0f/255.0f blue:31.0f/255.0f alpha:1];
     self.navigationController.navigationBar.tintColor = tintColor;
 }
 
@@ -89,9 +88,7 @@
     self.note = [self.fetchedResultsController objectAtIndexPath:indexPath];
     controller.data = self.note.data;
     controller.content = self.note.content;
-    TSContentViewController *contController = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContentViewController"];
-    contController.delegate = self;
-    [contController receiveCell];
+    [controller receiveCell:self.note];
     
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -118,9 +115,26 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-- (void)cellForRemoval:(TSNote *)note
-{
-    NSLog(@"delete cell!!!");
+#pragma mark - animation cell
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.frame = CGRectMake(0 - CGRectGetWidth(cell.frame), CGRectGetMinY(cell.frame),
+                            CGRectGetWidth(cell.frame), CGRectGetHeight(cell.frame));
+    
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         
+                         cell.frame = CGRectMake(0, CGRectGetMinY(cell.frame),
+                                                 CGRectGetWidth(cell.frame),
+                                                 CGRectGetHeight(cell.frame));
+                         
+                         cell.backgroundColor = [UIColor whiteColor];
+                         
+                     } completion:^(BOOL finished) {
+                     }];
 }
 
 #pragma mark - Fetched results controller

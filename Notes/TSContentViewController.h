@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TSNote.h"
 
-@protocol TSContentViewControllerDelegate <NSObject>
-
-- (void)cellForRemoval:(TSNote *)note;
-
-@end
-
 @interface TSContentViewController : UIViewController
 
 @property (strong, nonatomic) NSString *data;
@@ -24,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
-@property (weak, nonatomic) id <TSContentViewControllerDelegate> delegate;
-
-- (void)receiveCell;
+- (void)receiveCell:(TSNote *)note;
 
 @end

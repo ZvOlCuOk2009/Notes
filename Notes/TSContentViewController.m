@@ -15,8 +15,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
+@property (strong, nonatomic) TSNote *currentNote;
 @property (strong, nonatomic) NSString *currentData;
-@property (strong, nonatomic) TSNote *note;
 
 @end
 
@@ -57,21 +57,22 @@
     return _managedObjectContext;
 }
 
-- (void)receiveCell
+- (void)receiveCell:(TSNote *)note
 {
-    [self.delegate cellForRemoval:self.note];
+    self.currentNote = note;
 }
 
 #pragma mark - Actions
 
 - (void)saveNote:(UIBarButtonItem *)item
 {
-    self.note = [NSEntityDescription insertNewObjectForEntityForName:@"TSNote"
-                                              inManagedObjectContext:self.managedObjectContext];
-    self.note.data = self.currentData;
-    self.note.content = self.contentTextView.text;
-    [self.managedObjectContext save:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.currentNote) {
+        [self createdNewNote];
+        [self.managedObjectContext deleteObject:self.currentNote];
+        [self.managedObjectContext save:nil];
+    } else {
+        [self createdNewNote];
+    }
 }
 
 - (void)deleteNote:(UIBarButtonItem *)item
@@ -87,12 +88,24 @@
     UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Да"
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                          [self.managedObjectContext deleteObject:self.currentNote];
+                                                          [self.managedObjectContext save:nil];
                                                           [self.navigationController popToRootViewControllerAnimated:YES];
                                                           NSLog(@"deleted");
                                                       }];
     [alertController addAction:actionNo];
     [alertController addAction:actionYes];
     [self presentViewController:alertController animated:YES completion:^{ }];
+}
+
+- (void)createdNewNote
+{
+    TSNote *note = [NSEntityDescription insertNewObjectForEntityForName:@"TSNote"
+                                                 inManagedObjectContext:self.managedObjectContext];
+    note.data = self.currentData;
+    note.content = self.contentTextView.text;
+    [self.managedObjectContext save:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

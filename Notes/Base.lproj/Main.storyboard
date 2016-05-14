@@ -9,7 +9,7 @@
         <!--Заметки-->
         <scene sceneID="BwM-Bw-RoA">
             <objects>
-                <tableViewController storyboardIdentifier="MainTableViewController" id="0Qc-3J-dx7" customClass="TSMainTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TSMainTableViewController" id="0Qc-3J-dx7" customClass="TSMainTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="9ZI-Ex-oeg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

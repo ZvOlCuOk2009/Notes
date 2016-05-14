@@ -10,6 +10,5 @@
 
 @interface TSMainTableViewController : UITableViewController
 
-//@property (strong, nonatomic) NSString *textNote;
 
 @end

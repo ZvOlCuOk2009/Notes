@@ -20,6 +20,7 @@
 		FD8593C81CE4B78200E0425B /* TSNote+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C51CE4B78200E0425B /* TSNote+CoreDataProperties.m */; };
 		FD8593C91CE4B78200E0425B /* TSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593C71CE4B78200E0425B /* TSNote.m */; };
 		FD8593CF1CE4B8A200E0425B /* TSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8593CE1CE4B8A200E0425B /* TSTableViewCell.m */; };
+		FDD4A6E81CE7B7140082AC71 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD4A6E71CE7B7140082AC71 /* Launch Screen.storyboard */; };
 		FDEA114E1CE6764200098BD2 /* TSContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDEA114D1CE6764200098BD2 /* TSContentViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		FD8593C71CE4B78200E0425B /* TSNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNote.m; sourceTree = "<group>"; };
 		FD8593CD1CE4B8A200E0425B /* TSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewCell.h; sourceTree = "<group>"; };
 		FD8593CE1CE4B8A200E0425B /* TSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewCell.m; sourceTree = "<group>"; };
+		FDD4A6E71CE7B7140082AC71 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		FDEA114C1CE6764200098BD2 /* TSContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSContentViewController.h; sourceTree = "<group>"; };
 		FDEA114D1CE6764200098BD2 /* TSContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSContentViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +178,7 @@
 			children = (
 				FD8593C11CE4B24C00E0425B /* TSMainTableViewController.h */,
 				FD8593C21CE4B24C00E0425B /* TSMainTableViewController.m */,
+				FDD4A6E71CE7B7140082AC71 /* Launch Screen.storyboard */,
 				FDEA114C1CE6764200098BD2 /* TSContentViewController.h */,
 				FDEA114D1CE6764200098BD2 /* TSContentViewController.m */,
 			);
@@ -308,6 +311,7 @@
 			files = (
 				FD85939E1CE4B19800E0425B /* LaunchScreen.storyboard in Resources */,
 				FD85939B1CE4B19800E0425B /* Assets.xcassets in Resources */,
+				FDD4A6E81CE7B7140082AC71 /* Launch Screen.storyboard in Resources */,
 				FD8593961CE4B19800E0425B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
