@@ -105,7 +105,6 @@
     controller.data = self.note.data;
     controller.content = self.note.content;
     [controller receiveCell:self.note];
-    
     [self.navigationController pushViewController:controller animated:YES];
 }
 

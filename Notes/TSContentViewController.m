@@ -73,8 +73,10 @@
         [self createdNewNote];
         [self.managedObjectContext deleteObject:self.currentNote];
         [self.managedObjectContext save:nil];
+        NSLog(@"YES CONTENT!!!");
     } else {
         [self createdNewNote];
+        NSLog(@"NON CONTENT!!!");
     }
 }
 
