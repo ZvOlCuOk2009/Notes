@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) TSNote *currentNote;
 @property (strong, nonatomic) NSString *currentData;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -32,6 +33,8 @@
     
     NSArray *buttons = @[deleteItem, saveItem];
     self.navigationItem.rightBarButtonItems = buttons;
+    
+    self.scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Image"]];
     
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     dateFormater.dateFormat = @"dd.MM.yyyy HH:mm";
@@ -77,15 +80,15 @@
 
 - (void)deleteNote:(UIBarButtonItem *)item
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Вы хотите удалить"
-                                                                             message:@"заметку?..."
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"You want to delete"
+                                                                             message:@"a note?..."
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"Нет"
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                          
                                                      }];
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Да"
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes"
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction * _Nonnull action) {
                                                           [self.managedObjectContext deleteObject:self.currentNote];
@@ -97,6 +100,8 @@
     [alertController addAction:actionYes];
     [self presentViewController:alertController animated:YES completion:^{ }];
 }
+
+#pragma mark - created new note
 
 - (void)createdNewNote
 {

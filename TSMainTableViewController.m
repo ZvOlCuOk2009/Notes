@@ -26,6 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                              target:self action:@selector(addNote:)];
     
@@ -41,6 +45,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Image"]];
     
     UIColor *tintColor = [UIColor colorWithRed:228.0f/255.0f green:171.0f/255.0f blue:31.0f/255.0f alpha:1];
     self.navigationController.navigationBar.tintColor = tintColor;
@@ -82,6 +88,16 @@
     return cell;
 }
 
+#pragma mark - Configure Cell
+
+- (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.dataLabel.text = note.data;
+    cell.contentLabel.text = note.content;
+}
+
+#pragma mark - UITableviewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TSContentViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContentViewController"];
@@ -92,16 +108,6 @@
     
     [self.navigationController pushViewController:controller animated:YES];
 }
-
-#pragma mark - Configure Cell
-
-- (void)configureCell:(TSTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TSNote *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.dataLabel.text = note.data;
-    cell.contentLabel.text = note.content;
-}
-
-#pragma mark - UITableviewDelegate
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -131,7 +137,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                                  CGRectGetWidth(cell.frame),
                                                  CGRectGetHeight(cell.frame));
                          
-                         cell.backgroundColor = [UIColor whiteColor];
+                         cell.backgroundColor = [UIColor clearColor];
                          
                      } completion:^(BOOL finished) {
                      }];

@@ -6,14 +6,15 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Заметки-->
+        <!--Notes-->
         <scene sceneID="BwM-Bw-RoA">
             <objects>
                 <tableViewController storyboardIdentifier="TSMainTableViewController" id="0Qc-3J-dx7" customClass="TSMainTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="9ZI-Ex-oeg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="qte-H7-Old" customClass="TSTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="60"/>
@@ -28,7 +29,7 @@
                                                 <constraint firstAttribute="height" constant="18" id="F5x-71-wW9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="13"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47X-CD-zJz">
@@ -41,6 +42,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="XG9-87-Yb6" firstAttribute="leading" secondItem="SZL-Ys-lRC" secondAttribute="leadingMargin" id="H4K-oU-3m8"/>
                                         <constraint firstItem="47X-CD-zJz" firstAttribute="leading" secondItem="SZL-Ys-lRC" secondAttribute="leadingMargin" id="Jm6-p8-B4k"/>
@@ -50,6 +52,7 @@
                                         <constraint firstItem="47X-CD-zJz" firstAttribute="trailing" secondItem="SZL-Ys-lRC" secondAttribute="trailingMargin" id="iC4-9Z-mOt"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="contentLabel" destination="47X-CD-zJz" id="sRX-A6-Gxe"/>
                                     <outlet property="dataLabel" destination="XG9-87-Yb6" id="p7S-rW-Czj"/>
@@ -61,7 +64,7 @@
                             <outlet property="delegate" destination="0Qc-3J-dx7" id="GeD-6p-C6c"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Заметки" id="srR-Ak-R4d"/>
+                    <navigationItem key="navigationItem" title="Notes" id="srR-Ak-R4d"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e7H-j3-5bH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -96,7 +99,7 @@
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyZ-FI-0Rx">
                                                 <rect key="frame" x="8" y="77" width="592" height="523"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="523" id="AiX-2x-QXE"/>
                                                 </constraints>
@@ -104,7 +107,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="dyZ-FI-0Rx" secondAttribute="trailing" id="0JT-Ch-zgj"/>
                                             <constraint firstItem="dyZ-FI-0Rx" firstAttribute="top" secondItem="8G8-iU-9BT" secondAttribute="bottom" constant="8" id="JSt-gl-nqo"/>
@@ -120,10 +123,11 @@
                                             <constraint firstAttribute="height" constant="21" id="YnT-mD-MbI"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="12"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gVa-GT-1O7" firstAttribute="top" secondItem="a8H-wB-G97" secondAttribute="top" id="0Eq-1V-BR6"/>
                                     <constraint firstItem="gVa-GT-1O7" firstAttribute="leading" secondItem="a8H-wB-G97" secondAttribute="leading" id="1Km-pz-EkM"/>
@@ -149,6 +153,7 @@
                         <outlet property="contentTextView" destination="dyZ-FI-0Rx" id="6Ze-Ox-h0h"/>
                         <outlet property="dataLabel" destination="NQ9-mv-eG4" id="Utz-9c-Gwb"/>
                         <outlet property="headerLabel" destination="8G8-iU-9BT" id="b72-ic-7sK"/>
+                        <outlet property="scrollView" destination="a8H-wB-G97" id="zE5-jB-gQi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrV-XC-9Nd" userLabel="First Responder" sceneMemberID="firstResponder"/>
